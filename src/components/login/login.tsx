@@ -6,7 +6,8 @@ const Login = ({ authService }: any) => {
   const onLogin = (event: React.MouseEvent) => {
     authService //
       .login(event.currentTarget.textContent)
-      .then(console.log);
+      .then(console.log)
+      .catch((err: string) => console.error(err));
   };
   return (
     <section>
