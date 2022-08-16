@@ -1,11 +1,9 @@
-import React from 'react';
 import styled from 'styled-components';
-import Logo from '../../assets/images/logo.png';
 
-const Header = () => {
+const Header = ({ authService }: any) => {
   return (
     <HomeHeader>
-      {true && <LogBtn>Logout</LogBtn>}
+      {true && <LogoutBtn>Logout</LogoutBtn>}
       <span>😎</span>
       <h1>Card Maker</h1>
     </HomeHeader>
@@ -17,6 +15,7 @@ const HomeHeader = styled.header`
   width: 100%;
   text-align: center;
   padding: 0.5em;
+  border-radius: 9px 9px 0 0;
   background-color: #385461;
   span {
     font-size: 2em;
@@ -26,9 +25,9 @@ const HomeHeader = styled.header`
     color: #ffffff;
   }
 `;
-const LogBtn = styled.button`
+const LogoutBtn = styled.button`
   position: absolute;
-  right: 3em;
+  right: 1em;
   top: 1em;
   padding: 0.8em;
   border-radius: 10%;

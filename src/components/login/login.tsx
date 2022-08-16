@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Footer from '../footer/footer';
 import Header from '../header/header';
 
 const Login = ({ authService }: any) => {
@@ -11,7 +10,7 @@ const Login = ({ authService }: any) => {
       .catch((err: string) => console.error(err));
   };
   return (
-    <section>
+    <Div>
       <Header />
       <Section>
         <h1>Login</h1>
@@ -24,14 +23,19 @@ const Login = ({ authService }: any) => {
           </li>
         </ul>
       </Section>
-      <Footer />
-    </section>
+    </Div>
   );
 };
 
-const Section = styled.section`
+const Div = styled.div`
+  width: 100%;
   max-width: 26em;
+  border-radius: 9px;
+  background-color: #ffffff;
+`;
+const Section = styled.section`
   margin: 0 auto;
+  padding: 0.4em;
   h1 {
     font-weight: bold;
     text-align: center;
