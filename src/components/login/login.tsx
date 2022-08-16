@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../header/header';
 
-const Login = ({ authService }: any) => {
+interface LoginProps {
+  authService?: any;
+}
+const Login = ({ authService }: LoginProps) => {
   const onLogin = (event: React.MouseEvent) => {
     authService //
       .login(event.currentTarget.textContent)
@@ -10,23 +13,33 @@ const Login = ({ authService }: any) => {
       .catch((err: string) => console.error(err));
   };
   return (
-    <Div>
-      <Header />
-      <Section>
-        <h1>Login</h1>
-        <ul>
-          <li>
-            <button onClick={onLogin}>Google</button>
-          </li>
-          <li>
-            <button onClick={onLogin}>Github</button>
-          </li>
-        </ul>
-      </Section>
-    </Div>
+    <DivWrap>
+      <Div>
+        <Header page="login" />
+        <Section>
+          <h1>Login</h1>
+          <ul>
+            <li>
+              <button onClick={onLogin}>Google</button>
+            </li>
+            <li>
+              <button onClick={onLogin}>Github</button>
+            </li>
+          </ul>
+        </Section>
+      </Div>
+    </DivWrap>
   );
 };
 
+const DivWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c3bebe;
+`;
 const Div = styled.div`
   width: 100%;
   max-width: 26em;

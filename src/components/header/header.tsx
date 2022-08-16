@@ -1,21 +1,29 @@
 import styled from 'styled-components';
 
-const Header = ({ authService }: any) => {
+interface StyleProps {
+  page?: 'login' | 'home';
+}
+interface HeaderProps extends StyleProps {
+  authService?: unknown;
+}
+const Header = ({ page, authService }: HeaderProps) => {
   return (
-    <HomeHeader>
-      {true && <LogoutBtn>Logout</LogoutBtn>}
-      <span>😎</span>
-      <h1>Card Maker</h1>
-    </HomeHeader>
+    <>
+      <HomeHeader page={page}>
+        {page === 'home' && <LogoutBtn>Logout</LogoutBtn>}
+        <span>😎</span>
+        <h1>Card Maker</h1>
+      </HomeHeader>
+    </>
   );
 };
 
-const HomeHeader = styled.header`
+const HomeHeader = styled.header<StyleProps>`
   position: relative;
   width: 100%;
   text-align: center;
   padding: 0.5em;
-  border-radius: 9px 9px 0 0;
+  border-radius: ${(props) => (props.page === 'home' ? '0px' : '9px 9px 0 0')};
   background-color: #385461;
   span {
     font-size: 2em;
