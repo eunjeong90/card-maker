@@ -1,16 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface StyleProps {
   page?: 'login' | 'home';
 }
 interface HeaderProps extends StyleProps {
-  authService?: unknown;
+  authService?: any;
+  onLogout?: () => void;
 }
-const Header = ({ page, authService }: HeaderProps) => {
+const Header = ({ page, onLogout }: HeaderProps) => {
   return (
     <>
       <HomeHeader page={page}>
-        {page === 'home' && <LogoutBtn>Logout</LogoutBtn>}
+        {page === 'home' && <LogoutBtn onClick={onLogout}>Logout</LogoutBtn>}
         <span>😎</span>
         <h1>Card Maker</h1>
       </HomeHeader>
