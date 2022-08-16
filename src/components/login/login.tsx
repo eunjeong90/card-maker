@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../header/header';
 
@@ -6,12 +7,24 @@ interface LoginProps {
   authService?: any;
 }
 const Login = ({ authService }: LoginProps) => {
+  const navigation = useNavigate();
+  const moveHome = (userId: string) => {
+    navigation('/home', {
+      replace: true,
+      state: { id: userId },
+    });
+  };
   const onLogin = (event: React.MouseEvent) => {
     authService //
       .login(event.currentTarget.textContent)
-      .then(console.log)
+      .then((data: any) => moveHome(data.user.uid))
       .catch((err: string) => console.error(err));
   };
+  useEffect(() => {
+    authService.onAuthChange((user: any) => {
+      user && moveHome(user.id);
+    });
+  }, []);
   return (
     <DivWrap>
       <Div>
