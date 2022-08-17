@@ -1,43 +1,41 @@
 import styled, { css } from 'styled-components';
-import DEFAULT_PROFILE from '../../assets/images/default_logo.png';
+import DEFAULT_PROFILE from '../../assets/images/default_profile.png';
 
 const Card = ({ card }: any) => {
-  const {
-    id,
-    name,
-    company,
-    theme = 'light',
-    title,
-    email,
-    message,
-    fileURL,
-  } = card;
+  const { id, name, company, theme, title, email, message, fileURL } = card;
+
   return (
     <>
-      <CardItem theme={theme}>
-        <div>
-          <img src={fileURL || DEFAULT_PROFILE} alt={`${name} profile`} />
-        </div>
-        <div>
+      {id && (
+        <CardItem theme={theme}>
           <div>
-            <strong>{name}</strong>
-            <span>{company}</span>
+            <img src={fileURL || DEFAULT_PROFILE} alt={`${name} profile`} />
           </div>
           <div>
-            <span>{title}</span>
-            <span>{email}</span>
+            <div>
+              <strong>{name}</strong>
+              <span>{company}</span>
+            </div>
+            <div>
+              <span>{title}</span>
+              <span>{email}</span>
+            </div>
+            <div>
+              <span>&quot;{message}&quot;</span>
+            </div>
           </div>
-          <div>
-            <span>&quot;{message}&quot;</span>
-          </div>
-        </div>
-      </CardItem>
+        </CardItem>
+      )}
     </>
   );
 };
 
 const CardItem = styled.li`
   display: flex;
+  line-height: 1.5;
+  border-radius: 0.8em;
+  padding: 1em;
+  margin-bottom: 1em;
   background-color: #f3f3f3;
   color: #242424;
   ${(props) =>
@@ -58,9 +56,6 @@ const CardItem = styled.li`
       background-color: #af78a1;
       color: #ffffff;
     `}
-  line-height: 1.5;
-  border-radius: 0.8em;
-  padding: 1em;
   > div {
     padding: 1em;
     &:first-child {
@@ -87,6 +82,7 @@ const CardItem = styled.li`
     }
     img {
       width: 9rem;
+      border-radius: 50%;
     }
     strong {
       font-size: 1.3em;

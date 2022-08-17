@@ -1,42 +1,55 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-const Editor = ({ cards }: any) => {
+const Editor = ({ addCard }: any) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const companyRef = useRef<HTMLInputElement>(null);
+  const selectRef = useRef<HTMLSelectElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const msgRef = useRef<HTMLTextAreaElement>(null);
+
+  const onSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const card = {
+      id: Date.now(),
+      name: nameRef.current?.value || '',
+      company: companyRef.current?.value || '',
+      theme: selectRef.current?.value,
+      title: titleRef.current?.value || '',
+      email: emailRef.current?.value || '',
+      message: msgRef.current?.value || '',
+      fileName: '',
+      fileURL: '',
+    };
+    console.log(card);
+    formRef.current?.reset();
+    addCard(card);
+  };
   return (
     <section>
       <Heading>Card Maker</Heading>
-      <CardForm>
-        {/* <div>
-              <span>{item.name}</span>
-              <span>{item.company}</span>
-              <span>{item.theme}</span>
-            </div>
-            <div>
-              <span>{item.title}</span>
-              <span>{item.email}</span>
-            </div>
-            <div>
-              <span>{item.textarea}</span>
-            </div> */}
+      <CardForm ref={formRef}>
         <div>
-          <input type="text" placeholder="Name" />
-          <input type="text" placeholder="Company" />
-          <select>
-            <option value="Light">light</option>
-            <option value="Dark">dark</option>
-            <option value="Colorful">Colorful</option>
+          <input type="text" placeholder="name" ref={nameRef} />
+          <input type="text" placeholder="company" ref={companyRef} />
+          <select ref={selectRef}>
+            <option value="light">light</option>
+            <option value="dark">dark</option>
+            <option value="colorful">Colorful</option>
           </select>
         </div>
         <div>
-          <input type="text" placeholder="Title" />
-          <input type="text" placeholder="email@abc.com" />
+          <input type="text" placeholder="Title" ref={titleRef} />
+          <input type="text" placeholder="email@abc.com" ref={emailRef} />
         </div>
         <div>
-          <textarea placeholder="Message" />
+          <textarea placeholder="message" ref={msgRef} />
         </div>
         <div>
           <button>No file</button>
-          <button>Add</button>
+          <button onClick={onSubmit}>Add</button>
         </div>
       </CardForm>
     </section>

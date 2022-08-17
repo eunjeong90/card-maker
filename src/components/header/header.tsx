@@ -13,7 +13,7 @@ const Header = ({ page, onLogout }: HeaderProps) => {
     <>
       <HomeHeader page={page}>
         {page === 'home' && <LogoutBtn onClick={onLogout}>Logout</LogoutBtn>}
-        <span>😎</span>
+        <span>🐸</span>
         <h1>Card Maker</h1>
       </HomeHeader>
     </>

@@ -7,18 +7,6 @@ import Preview from '../preview/preview';
 
 const Home = ({ authService }: any) => {
   const navigation = useNavigate();
-  const [cards, setCards] = useState([
-    {
-      id: '1',
-      name: 'eunjeong',
-      company: 'music',
-      theme: ['colorful', 'dark', 'light'],
-      title: 'backsoo',
-      email: 'cuttlefish77@naver.com',
-      message: '슈슈슈슉',
-      fileURL: null,
-    },
-  ]);
   const onLogout = () => {
     authService.logout();
   };
@@ -31,11 +19,28 @@ const Home = ({ authService }: any) => {
       }
     });
   });
+  const [cards, setCards] = useState([
+    {
+      id: '',
+      name: '',
+      company: '',
+      theme: '',
+      title: '',
+      email: '',
+      message: '',
+      fileURL: null,
+    },
+  ]);
+  const addCard = (card: any) => {
+    const updated = [...cards, card];
+    setCards(updated);
+    console.log(cards);
+  };
   return (
     <Div>
       <Header page="home" onLogout={onLogout} />
       <Container>
-        <Editor cards={cards} />
+        <Editor cards={cards} addCard={addCard} />
         <Preview cards={cards} />
       </Container>
     </Div>
