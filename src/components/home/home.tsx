@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Editor from '../editor/editor';
@@ -7,6 +7,18 @@ import Preview from '../preview/preview';
 
 const Home = ({ authService }: any) => {
   const navigation = useNavigate();
+  const [cards, setCards] = useState([
+    {
+      id: '1',
+      name: 'eunjeong',
+      company: 'music',
+      theme: ['colorful', 'dark', 'light'],
+      title: 'backsoo',
+      email: 'cuttlefish77@naver.com',
+      message: '슈슈슈슉',
+      fileURL: null,
+    },
+  ]);
   const onLogout = () => {
     authService.logout();
   };
@@ -23,8 +35,8 @@ const Home = ({ authService }: any) => {
     <Div>
       <Header page="home" onLogout={onLogout} />
       <Container>
-        <Editor />
-        <Preview />
+        <Editor cards={cards} />
+        <Preview cards={cards} />
       </Container>
     </Div>
   );
