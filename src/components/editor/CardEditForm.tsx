@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { CardForm } from './cardStyles';
 
 const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
+  const { id, name, company, theme, title, email, message, fileURL } = card;
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const companyRef = useRef<HTMLInputElement>(null);
@@ -36,6 +37,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
             type="text"
             placeholder="name"
             name="name"
+            value={name}
             ref={nameRef}
             onChange={onChange}
           />
@@ -43,12 +45,14 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
             type="text"
             placeholder="company"
             name="company"
+            value={company}
             ref={companyRef}
             onChange={onChange}
           />
           <select
             ref={selectRef}
             name="theme" //
+            value={theme}
             onChange={onChange}
           >
             <option value="light">light</option>
@@ -61,6 +65,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
             type="text"
             placeholder="title"
             name="title"
+            value={title}
             ref={titleRef}
             onChange={onChange}
           />
@@ -68,6 +73,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
             type="text"
             placeholder="email@abc.com"
             name="email"
+            value={email}
             ref={emailRef}
             onChange={onChange}
           />
@@ -76,6 +82,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
           <textarea
             placeholder="message"
             name="message"
+            value={message}
             ref={msgRef}
             onChange={onChange}
           />
