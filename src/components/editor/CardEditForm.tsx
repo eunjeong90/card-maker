@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { CardForm } from './cardStyles';
 
-const CardEditForm = ({ card, updateCard }: any) => {
+const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const companyRef = useRef<HTMLInputElement>(null);
@@ -10,7 +10,11 @@ const CardEditForm = ({ card, updateCard }: any) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const msgRef = useRef<HTMLTextAreaElement>(null);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     if (e.currentTarget == null) {
       return;
     }
@@ -19,6 +23,10 @@ const CardEditForm = ({ card, updateCard }: any) => {
       ...card,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+  };
+  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    deleteCard(card);
   };
   return (
     <div>
@@ -41,7 +49,7 @@ const CardEditForm = ({ card, updateCard }: any) => {
           <select
             ref={selectRef}
             name="theme" //
-            // onChange={onChange}
+            onChange={onChange}
           >
             <option value="light">light</option>
             <option value="dark">dark</option>
@@ -69,12 +77,12 @@ const CardEditForm = ({ card, updateCard }: any) => {
             placeholder="message"
             name="message"
             ref={msgRef}
-            // onChange={onChange}
+            onChange={onChange}
           />
         </div>
         <div>
           <button>No file</button>
-          <button>Add</button>
+          <button onClick={onSubmit}>delete</button>
         </div>
       </CardForm>
     </div>

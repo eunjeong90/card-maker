@@ -63,6 +63,13 @@ const Home = ({ authService }: any) => {
       return updated;
     });
   };
+  const deleteCard = (card: { id: string }) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      delete updated[card.id];
+      return updated;
+    });
+  };
   return (
     <Div>
       <Header page="home" onLogout={onLogout} />
@@ -71,6 +78,7 @@ const Home = ({ authService }: any) => {
           cards={cards}
           addCard={createOrUpdateCard}
           updateCard={createOrUpdateCard}
+          deleteCard={deleteCard}
         />
         <Preview cards={cards} />
       </Container>

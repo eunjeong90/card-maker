@@ -2,12 +2,17 @@ import styled from 'styled-components';
 import CardAddForm from './CardAddForm';
 import CardEditForm from './CardEditForm';
 
-const Editor = ({ cards, addCard, updateCard }: any) => {
+const Editor = ({ cards, addCard, updateCard, deleteCard }: any) => {
   return (
     <section>
       <Heading>Card Maker</Heading>
       {Object.keys(cards).map((key: any) => (
-        <CardEditForm key={key} card={cards[key]} updateCard={updateCard} />
+        <CardEditForm
+          key={key}
+          card={cards[key]}
+          updateCard={updateCard}
+          deleteCard={deleteCard}
+        />
       ))}
       <CardAddForm addCard={addCard} />
     </section>
