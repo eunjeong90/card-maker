@@ -6,9 +6,9 @@ const Preview = ({ cards }: any) => {
     <section>
       <Heading>Card Preview</Heading>
       <Wrapper>
-        {cards.map((item: any) => (
-          <div key={item.id}>
-            <Card card={item} />
+        {Object.keys(cards).map((key: any) => (
+          <div key={key}>
+            <Card card={cards[key]} />
           </div>
         ))}
       </Wrapper>

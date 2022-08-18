@@ -3,7 +3,6 @@ import DEFAULT_PROFILE from '../../assets/images/default_profile.png';
 
 const Card = ({ card }: any) => {
   const { id, name, company, theme, title, email, message, fileURL } = card;
-
   return (
     <>
       {id && (

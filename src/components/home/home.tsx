@@ -5,6 +5,11 @@ import Editor from '../editor/editor';
 import Header from '../header/header';
 import Preview from '../preview/preview';
 
+interface LooseObject {
+  [key: string]: {
+    [key: string]: number | string | null;
+  };
+}
 const Home = ({ authService }: any) => {
   const navigation = useNavigate();
   const onLogout = () => {
@@ -19,28 +24,54 @@ const Home = ({ authService }: any) => {
       }
     });
   });
-  const [cards, setCards] = useState([
-    {
-      id: '',
-      name: '',
-      company: '',
-      theme: '',
-      title: '',
-      email: '',
-      message: '',
+  const [cards, setCards] = useState<LooseObject>({
+    '1': {
+      id: '1',
+      name: '은정',
+      company: 'music',
+      theme: 'light',
+      title: 'backsoo😎',
+      email: 'amiya@mulzoom.plz',
+      message: '놀고싶어요',
       fileURL: null,
     },
-  ]);
-  const addCard = (card: any) => {
-    const updated = [...cards, card];
-    setCards(updated);
-    console.log(cards);
+    '2': {
+      id: '2',
+      name: '은정',
+      company: 'music',
+      theme: 'dark',
+      title: 'backsoo😎',
+      email: 'amiya@mulzoom.plz',
+      message: '놀고싶어요',
+      fileURL: null,
+    },
+    '3': {
+      id: '3',
+      name: '은정',
+      company: 'music',
+      theme: 'colorful',
+      title: 'backsoo😎',
+      email: 'amiya@mulzoom.plz',
+      message: '놀고싶어요',
+      fileURL: null,
+    },
+  });
+  const createOrUpdateCard = (card: { id: string }) => {
+    setCards((cards) => {
+      const updated = { ...cards };
+      updated[card.id] = card;
+      return updated;
+    });
   };
   return (
     <Div>
       <Header page="home" onLogout={onLogout} />
       <Container>
-        <Editor cards={cards} addCard={addCard} />
+        <Editor
+          cards={cards}
+          addCard={createOrUpdateCard}
+          updateCard={createOrUpdateCard}
+        />
         <Preview cards={cards} />
       </Container>
     </Div>
