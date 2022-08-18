@@ -88,7 +88,13 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
           />
         </div>
         <div>
-          <button>No file</button>
+          <label htmlFor="profile-btn">{fileURL ? name : 'No File'}</label>
+          <input
+            id="profile-btn"
+            name="fileURL"
+            className="ally-hidden"
+            type="file"
+          />
           <button onClick={onSubmit}>delete</button>
         </div>
       </CardForm>
