@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { CardForm } from './cardStyles';
 
-const CardAddForm = ({ addCard }: any) => {
+const CardAddForm = ({ card, addCard }: any) => {
+  const { id, name, company, theme, title, email, message, fileURL } = card;
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const companyRef = useRef<HTMLInputElement>(null);
@@ -24,7 +25,7 @@ const CardAddForm = ({ addCard }: any) => {
       fileURL: '',
     };
     console.log(card);
-    // formRef.current?.reset();
+    formRef.current?.reset();
     addCard(card);
   };
   return (
@@ -47,7 +48,13 @@ const CardAddForm = ({ addCard }: any) => {
           <textarea placeholder="message" ref={msgRef} />
         </div>
         <div>
-          <button>No file</button>
+          <label htmlFor="profile-btn">{fileURL ? name : 'No File'}</label>
+          <input
+            id="profile-btn"
+            name="fileURL"
+            className="ally-hidden"
+            type="file"
+          />
           <button onClick={onSubmit}>Add</button>
         </div>
       </CardForm>

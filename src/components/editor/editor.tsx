@@ -6,7 +6,7 @@ const Editor = ({ cards, addCard, updateCard, deleteCard }: any) => {
   return (
     <section>
       <Heading>Card Maker</Heading>
-      <CardAddForm addCard={addCard} />
+      <CardAddForm addCard={addCard} card={cards} />
       {Object.keys(cards).map((key: string) => (
         <CardEditForm
           key={key}
