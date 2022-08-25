@@ -9,12 +9,11 @@ export const CardForm = styled.form`
     input,
     textarea,
     select,
-    label {
+    .btn-area {
       flex: 1;
       padding: 0.4em;
     }
-    button,
-    label {
+    button {
       background-color: #c1bdbd;
       border-width: 1px;
       font-weight: bold;
@@ -25,6 +24,24 @@ export const CardForm = styled.form`
         background-color: #2e4550;
         color: #ffffff;
       }
+    }
+  }
+`;
+
+export const ImageInputArea = styled.div`
+  flex: 1;
+  button {
+    flex: 1;
+    padding: 0.4em;
+    background-color: #c1bdbd;
+    border-width: 1px;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+    cursor: pointer;
+    &:last-child {
+      background-color: #2e4550;
+      color: #ffffff;
     }
   }
 `;

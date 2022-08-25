@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CardForm } from './cardStyles';
 
-const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
-  const { id, name, company, theme, title, email, message, fileURL } = card;
+const CardEditForm = ({ FileInput, card, updateCard, deleteCard }: any) => {
+  const { id, name, company, theme, title, email, message, fileURL, fileName } =
+    card;
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const companyRef = useRef<HTMLInputElement>(null);
@@ -11,6 +12,13 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const msgRef = useRef<HTMLTextAreaElement>(null);
 
+  const onFileChange = (file: { name: string; url: string }) => {
+    updateCard({
+      ...card,
+      fileName: file.name,
+      fileURL: file.url,
+    });
+  };
   const onChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -29,6 +37,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
     e.preventDefault();
     deleteCard(card);
   };
+
   return (
     <div>
       <CardForm ref={formRef}>
@@ -88,13 +97,7 @@ const CardEditForm = ({ card, updateCard, deleteCard }: any) => {
           />
         </div>
         <div>
-          <label htmlFor="profile-btn">{fileURL ? name : 'No File'}</label>
-          <input
-            id="profile-btn"
-            name="fileURL"
-            className="ally-hidden"
-            type="file"
-          />
+          <FileInput onFileChange={onFileChange} name={fileName} />
           <button onClick={onSubmit}>delete</button>
         </div>
       </CardForm>

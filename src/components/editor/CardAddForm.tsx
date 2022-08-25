@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { CardForm } from './cardStyles';
 
-const CardAddForm = ({ card, addCard }: any) => {
+const CardAddForm = ({ FileInput, card, addCard }: any) => {
   const { id, name, company, theme, title, email, message, fileURL } = card;
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -10,7 +10,18 @@ const CardAddForm = ({ card, addCard }: any) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const msgRef = useRef<HTMLTextAreaElement>(null);
+  const [file, setFile] = useState<any | null>({
+    fileName: null,
+    fileURL: null,
+  });
 
+  const onFileChange = (file: { name: any; url: any }) => {
+    console.log(file);
+    setFile({
+      fileName: file.name,
+      fileURL: file.url,
+    });
+  };
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const card = {
@@ -21,11 +32,11 @@ const CardAddForm = ({ card, addCard }: any) => {
       title: titleRef.current?.value || '',
       email: emailRef.current?.value || '',
       message: msgRef.current?.value || '',
-      fileName: '',
-      fileURL: '',
+      fileName: file.fileName || '',
+      fileURL: file.fileURL || '',
     };
-    console.log(card);
     formRef.current?.reset();
+    console.log(card);
     addCard(card);
   };
   return (
@@ -48,13 +59,7 @@ const CardAddForm = ({ card, addCard }: any) => {
           <textarea placeholder="message" ref={msgRef} />
         </div>
         <div>
-          <label htmlFor="profile-btn">{fileURL ? name : 'No File'}</label>
-          <input
-            id="profile-btn"
-            name="fileURL"
-            className="ally-hidden"
-            type="file"
-          />
+          <FileInput onFileChange={onFileChange} name={file.fileName} />
           <button onClick={onSubmit}>Add</button>
         </div>
       </CardForm>
