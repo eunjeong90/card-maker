@@ -10,7 +10,7 @@ interface LooseObject {
     [key: string]: number | string | null;
   };
 }
-const Home = ({ authService }: any) => {
+const Home = ({ FileInput, authService }: any) => {
   const navigation = useNavigate();
   const onLogout = () => {
     authService.logout();
@@ -75,6 +75,7 @@ const Home = ({ authService }: any) => {
       <Header page="home" onLogout={onLogout} />
       <Container>
         <Editor
+          FileInput={FileInput}
           cards={cards}
           addCard={createOrUpdateCard}
           updateCard={createOrUpdateCard}

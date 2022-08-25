@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import CardAddForm from './CardAddForm';
 import CardEditForm from './CardEditForm';
 
-const Editor = ({ cards, addCard, updateCard, deleteCard }: any) => {
+const Editor = ({ FileInput, cards, addCard, updateCard, deleteCard }: any) => {
   return (
     <section>
       <Heading>Card Maker</Heading>
-      <CardAddForm addCard={addCard} card={cards} />
+      <CardAddForm FileInput={FileInput} addCard={addCard} card={cards} />
       {Object.keys(cards).map((key: string) => (
         <CardEditForm
           key={key}
+          FileInput={FileInput}
           card={cards[key]}
           updateCard={updateCard}
           deleteCard={deleteCard}
