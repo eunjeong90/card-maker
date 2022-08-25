@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Editor from '../editor/editor';
 import Header from '../header/header';
@@ -10,58 +10,41 @@ interface LooseObject {
     [key: string]: number | string | null;
   };
 }
-const Home = ({ FileInput, authService }: any) => {
+interface CustomizedRouterState {
+  [myState: string]: {
+    id: string;
+  };
+}
+
+const Home = ({ FileInput, authService, cardRepository }: any) => {
   const navigation = useNavigate();
+  const location = useLocation();
+  const locationState = location.state as CustomizedRouterState;
+  const [cards, setCards] = useState<LooseObject>({});
+  const [userId, setUserId] = useState(locationState && locationState.id);
+
   const onLogout = () => {
     authService.logout();
   };
   useEffect(() => {
     authService.onAuthChange((user: any) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         navigation('/', {
           replace: true,
         });
       }
     });
   });
-  const [cards, setCards] = useState<LooseObject>({
-    '1': {
-      id: '1',
-      name: '은정',
-      company: 'music',
-      theme: 'light',
-      title: 'backsoo😎',
-      email: 'amiya@mulzoom.plz',
-      message: '놀고싶어요',
-      fileURL: null,
-    },
-    '2': {
-      id: '2',
-      name: '은정',
-      company: 'music',
-      theme: 'dark',
-      title: 'backsoo😎',
-      email: 'amiya@mulzoom.plz',
-      message: '놀고싶어요',
-      fileURL: null,
-    },
-    '3': {
-      id: '3',
-      name: '은정',
-      company: 'music',
-      theme: 'colorful',
-      title: 'backsoo😎',
-      email: 'amiya@mulzoom.plz',
-      message: '놀고싶어요',
-      fileURL: null,
-    },
-  });
+
   const createOrUpdateCard = (card: { id: string }) => {
     setCards((cards) => {
       const updated = { ...cards };
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveDB(userId, card);
   };
   const deleteCard = (card: { id: string }) => {
     setCards((cards) => {
@@ -69,6 +52,7 @@ const Home = ({ FileInput, authService }: any) => {
       delete updated[card.id];
       return updated;
     });
+    cardRepository.removeDB(userId, card);
   };
   return (
     <Div>
@@ -80,6 +64,7 @@ const Home = ({ FileInput, authService }: any) => {
           addCard={createOrUpdateCard}
           updateCard={createOrUpdateCard}
           deleteCard={deleteCard}
+          cardRepository={cardRepository}
         />
         <Preview cards={cards} />
       </Container>
