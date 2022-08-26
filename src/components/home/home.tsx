@@ -26,6 +26,22 @@ const Home = ({ FileInput, authService, cardRepository }: any) => {
   const onLogout = () => {
     authService.logout();
   };
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(
+      userId,
+      (cards: React.SetStateAction<LooseObject>) => {
+        setCards(cards);
+      }
+    );
+    return () => {
+      stopSync();
+    };
+  }, [userId]);
+
   useEffect(() => {
     authService.onAuthChange((user: any) => {
       if (user) {
